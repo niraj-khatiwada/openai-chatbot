@@ -8,7 +8,7 @@ from langchain.prompts import (
     MessagesPlaceholder,
 )
 from langchain.memory import (
-    ConversationBufferMemory,
+    ConversationSummaryMemory,
     FileChatMessageHistory,
 )
 
@@ -19,9 +19,10 @@ IS_DEBUG_MODE = os.getenv("DEBUG") == "true"
 
 chat_llm = ChatOpenAI(api_key=API_KEY)
 
-memory = ConversationBufferMemory(
+memory = ConversationSummaryMemory(
     memory_key="content_memory",
     return_messages=True,
+    llm=chat_llm,
     chat_memory=FileChatMessageHistory("history.json"),
 )
 
